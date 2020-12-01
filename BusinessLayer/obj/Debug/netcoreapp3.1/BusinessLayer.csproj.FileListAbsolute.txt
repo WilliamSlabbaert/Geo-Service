@@ -1,0 +1,15 @@
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.deps.json
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.dll
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csprojAssemblyReference.cache
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfo.cs
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.runtimeconfig.json
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.runtimeconfig.dev.json
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.genruntimeconfig.cache
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.dll
+C:\Users\willi\Desktop\HoGent\2020-2021\WEB 4\Geo\Geography Service\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.pdb
