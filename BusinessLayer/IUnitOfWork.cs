@@ -8,5 +8,9 @@ namespace BusinessLayer
     {
         public int Complete();
         public void Dispose();
+        public IContinentRepo continentRepo { get; }
+        public IRiverRepo riverRepo { get; }
+        public ICityRepo cityRepo { get; }
+        public ICountryRepo countryRepo { get; }
     }
 }

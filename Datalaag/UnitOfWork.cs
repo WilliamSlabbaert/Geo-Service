@@ -12,6 +12,15 @@ namespace Datalaag
         {
             this.context = context;
         }
+
+        public IContinentRepo continentRepo { get;}
+
+        public IRiverRepo riverRepo { get; }
+
+        public ICityRepo cityRepo { get; }
+
+        public ICountryRepo countryRepo { get; }
+
         public int Complete()
         {
             return context.SaveChanges();

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{9CB1857E-F148-479C-9118-E5C8F79DDA52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{9CB1857E-F148-479C-9118-E5C8F79DDA52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalaag", "Datalaag\Datalaag.csproj", "{A37A4945-36A7-49A0-97A5-37E4979E59B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalaag", "Datalaag\Datalaag.csproj", "{A37A4945-36A7-49A0-97A5-37E4979E59B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer_Test", "BusinessLayer_Test\BusinessLayer_Test.csproj", "{87EA5B5A-3FA0-4F5C-8C0D-CAB7331D5B10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A37A4945-36A7-49A0-97A5-37E4979E59B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A37A4945-36A7-49A0-97A5-37E4979E59B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A37A4945-36A7-49A0-97A5-37E4979E59B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EA5B5A-3FA0-4F5C-8C0D-CAB7331D5B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EA5B5A-3FA0-4F5C-8C0D-CAB7331D5B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EA5B5A-3FA0-4F5C-8C0D-CAB7331D5B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EA5B5A-3FA0-4F5C-8C0D-CAB7331D5B10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
