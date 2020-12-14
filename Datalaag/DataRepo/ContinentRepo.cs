@@ -10,6 +10,12 @@ namespace Datalaag
     public class ContinentRepo : IContinentRepo
     {
         private DataContext context;
+
+        public ContinentRepo(DataContext context)
+        {
+            this.context = context;
+        }
+
         public void add(Continent con)
         {
             context.ContinentData.Add(con);

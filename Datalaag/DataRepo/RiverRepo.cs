@@ -10,6 +10,12 @@ namespace Datalaag.DataRepo
     class RiverRepo : IRiverRepo
     {
         private DataContext context;
+
+        public RiverRepo(DataContext context)
+        {
+            this.context = context;
+        }
+
         public void add(River con)
         {
             context.RiverData.Add(con);

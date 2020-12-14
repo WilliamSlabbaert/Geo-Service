@@ -7,9 +7,15 @@ using System.Text;
 
 namespace Datalaag.DataRepo
 {
-    class CountryRepo
+    class CountryRepo : ICountryRepo
     {
         private DataContext context;
+
+        public CountryRepo(DataContext context)
+        {
+            this.context = context;
+        }
+
         public void add(Country con)
         {
             context.CountryData.Add(con);

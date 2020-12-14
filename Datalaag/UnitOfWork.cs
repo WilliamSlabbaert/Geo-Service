@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using Datalaag.DataRepo;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,11 @@ namespace Datalaag
         public UnitOfWork(DataContext context)
         {
             this.context = context;
+            cityRepo = new CityRepo(context);
+            countryRepo = new CountryRepo(context);
+            continentRepo = new ContinentRepo(context);
+            riverRepo = new RiverRepo(context);
+            
         }
 
         public IContinentRepo continentRepo { get;}

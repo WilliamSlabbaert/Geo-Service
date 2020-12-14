@@ -24,7 +24,12 @@ namespace Datalaag
         {
             optionsBuilder.UseSqlServer(dataString);
         }
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Country>()
+                .HasOne(c => c.Continent).WithMany(c => c.Countries);
+        }
+
 
         public virtual DbSet<City> CityData { get; set; }
         public virtual DbSet<Country> CountryData { get; set; }

@@ -10,14 +10,21 @@ namespace BusinessLayer
         {
         }
 
-        public Continent(string name, int population)
+        public Continent(string name)
         {
             SetName(name);
-            SetPopulation(population);
+            SetPopulation(0);
         }
+        public void AddCountry(Country con)
+        {
+            if (con.Equals(null))
+                throw new Exception("Country is Null");
+            this.Countries.Add(con);
+        }
+
         public void SetPopulation(int pop) 
         {
-            if(pop <=0 || pop == null)
+            if(pop <0 || pop == null)
                 throw new Exception("Population is lower than 0");
             this.Population = pop;
         }
@@ -28,8 +35,8 @@ namespace BusinessLayer
             this.Name = name;
         }
         public int ID { get; set; }
-        public String Name { get; set; }
+        public String Name { get; private set; }
         public int Population { get; private set; }
-        public List<Country> Countries { get; set; } = new List<Country>();
+        public virtual List<Country> Countries { get; set; }
     }
 }
