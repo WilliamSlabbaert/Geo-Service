@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer
@@ -28,9 +29,9 @@ namespace BusinessLayer
             {
                 return uow.continentRepo.getById(id);
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something went wrong : (ContinentManager GetContinent)");
+                throw new Exception("Something went wrong : (ContinentManager GetContinent) " + e);
             }
         }
         public void AddContinent(Continent con)
@@ -48,8 +49,13 @@ namespace BusinessLayer
         {
             try
             {
-                uow.continentRepo.delete(id);
-                uow.Complete();
+                if (uow.continentRepo.getById(id).Countries.Count.Equals(0))
+                {
+                    uow.continentRepo.delete(id);
+                    uow.Complete();
+                }
+                else
+                    throw new Exception("Continent still has existing countries");
             }catch
             {
                 throw new Exception("Something went wrong : (ContinentManager RemoveContinent)");
@@ -60,12 +66,23 @@ namespace BusinessLayer
         {
             try
             {
-                uow.continentRepo.removeAll();
-                uow.Complete();
+                var temp = uow.continentRepo.getAll().SelectMany(s => s.Countries).ToList();
+                //var temp = uow.continentRepo.getAll();
+                //int count = 0;
+                //foreach(var i in temp)
+                //    count += i.Countries.Count;
+
+                if (temp.Count == 0)
+                {
+                    uow.continentRepo.removeAll();
+                    uow.Complete();
+                }
+                else
+                    throw new Exception("Continents still have existing countries");
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something went wrong : (ContinentManager RemoveAllContinents)");
+                throw new Exception("Something went wrong : (ContinentManager RemoveAllContinents) => " + e);
             }
 
         }

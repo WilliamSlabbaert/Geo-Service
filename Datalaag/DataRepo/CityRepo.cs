@@ -13,42 +13,94 @@ namespace Datalaag.DataRepo
 
         public CityRepo(DataContext context)
         {
-            this.context = context;
+            try
+            {
+                this.context = context;
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo");
+            }
         }
 
         public void add(City con)
         {
-            context.CityData.Add(con);
+            try
+            {
+                context.CityData.Add(con);
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo add");
+            }
         }
 
         public void delete(int id)
         {
-            context.CityData.Remove(getById(id));
+            try
+            {
+                context.CityData.Remove(getById(id));
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo delete");
+            }
         }
 
         public List<City> getAll()
         {
-            return context.CityData.Include(s => s.Country).ToList();
+            try
+            {
+                return context.CityData.Include(s => s.Country).ToList();
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo getAll");
+            }
         }
 
         public City getById(int id)
         {
-            City temp = context.CityData.Include(s => s.Country).Where(s => s.ID == id).ToList()[0];
-            if (temp == null)
-                return null;
-            else
-                return temp;
+            try
+            {
+                City temp = context.CityData.Include(s => s.Country).Where(s => s.ID == id).ToList()[0];
+                if (temp == null)
+                    return null;
+                else
+                    return temp;
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo getById");
+            }
         }
 
         public void removeAll()
         {
-            foreach (City item in getAll())
-                delete(item.ID);
+            try
+            {
+                foreach (City item in getAll())
+                    delete(item.ID);
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo removeAll");
+            }
         }
 
         public void update(City con)
         {
-            context.CityData.Update(con);
+            try
+            {
+                context.CityData.Update(con);
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo update");
+            }
         }
     }
 }

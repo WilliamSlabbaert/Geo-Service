@@ -13,42 +13,97 @@ namespace Datalaag
 
         public ContinentRepo(DataContext context)
         {
-            this.context = context;
+            try
+            {
+                this.context = context;
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo");
+            }
         }
 
         public void add(Continent con)
         {
-            context.ContinentData.Add(con);
+            try
+            {
+                context.ContinentData.Add(con);
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo add");
+            }
         }
 
         public void delete(int id)
         {
-            context.ContinentData.Remove(getById(id));
+            try
+            {
+                context.ContinentData.Remove(getById(id));
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo add");
+            }
         }
 
         public List<Continent> getAll()
         {
-            return context.ContinentData.Include(s => s.Countries).ToList();
+            try
+            {
+                var temp = context.ContinentData.Include(s => s.Countries).ToList();
+                foreach (var t in temp)
+                    t.GetCountiesPopulationCount();
+                return temp;
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo getAll");
+            }
         }
 
         public Continent getById(int id)
         {
-            Continent temp = context.ContinentData.Include(s => s.Countries).Where(s => s.ID == id).ToList()[0];
-            if (temp == null)
-                return null;
-            else
-                return temp;
+            try
+            {
+                Continent temp = context.ContinentData.Include(s => s.Countries).Where(s => s.ID == id).ToList()[0];
+                if (temp == null)
+                    return null;
+                else
+                    return temp;
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo getById");
+            }
         }
 
         public void removeAll()
         {
-            foreach (Continent item in getAll())
-                delete(item.ID);
+            try
+            {
+                foreach (Continent item in getAll())
+                    delete(item.ID);
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo removeAll");
+            }
         }
 
         public void update(Continent con)
         {
-            context.ContinentData.Update(con);
+            try
+            {
+                context.ContinentData.Update(con);
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : ContinentRepo update");
+            }
         }
     }
 }

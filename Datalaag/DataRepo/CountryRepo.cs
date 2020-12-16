@@ -13,42 +13,104 @@ namespace Datalaag.DataRepo
 
         public CountryRepo(DataContext context)
         {
-            this.context = context;
+            try
+            {
+                this.context = context;
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : CountryRepo");
+            }
         }
 
         public void add(Country con)
         {
-            context.CountryData.Add(con);
+            try
+            {
+                var temp = context.ContinentData.Find(con.Continent.ID);
+                temp.AddCountry(con);
+                context.ContinentData.Update(temp);
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo add " + e);
+            }
         }
 
         public void delete(int id)
         {
-            context.CountryData.Remove(getById(id));
+            try
+            {
+                //var con = getById(id).Continent;
+                //con.Countries.Remove(getById(id));
+                
+
+                context.CountryData.Remove(getById(id));
+                context.SaveChanges();
+                //context.ContinentData.Update(con);
+                //context.SaveChanges();
+
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo delete " + e);
+            }
         }
 
         public List<Country> getAll()
         {
-            return context.CountryData.Include(s => s.Cities).Include(s =>s.Rivers).ToList();
+            try
+            {
+                return context.CountryData.Include(s => s.Cities).Include(s => s.Rivers).ToList();
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : CountryRepo delete");
+            }
         }
 
         public Country getById(int id)
         {
-            Country temp = context.CountryData.Include(s => s.Cities).Include(s => s.Rivers).ToList()[0];
-            if (temp == null)
-                return null;
-            else
-                return temp;
+            try
+            {
+                Country temp = context.CountryData.FirstOrDefault(s => s.ID == id);
+                if (temp == null)
+                    throw new Exception("No Country found");
+                else
+                    return temp;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo getById " + e);
+            }
         }
 
         public void removeAll()
         {
-            foreach (Country item in getAll())
-                delete(item.ID);
+            try
+            {
+                foreach (var item in getAll())
+                    delete(item.ID);
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo removeAll " + e);
+            }
         }
 
         public void update(Country con)
         {
-            context.CountryData.Update(con);
+            try
+            {
+                context.CountryData.Update(con);
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Something went wrong : CountryRepo update");
+            }
+
         }
     }
 }

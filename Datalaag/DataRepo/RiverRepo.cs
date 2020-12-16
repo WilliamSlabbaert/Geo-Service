@@ -19,11 +19,13 @@ namespace Datalaag.DataRepo
         public void add(River con)
         {
             context.RiverData.Add(con);
+            context.SaveChanges();
         }
 
         public void delete(int id)
         {
             context.RiverData.Remove(getById(id));
+            context.SaveChanges();
         }
 
         public List<River> getAll()
@@ -49,6 +51,7 @@ namespace Datalaag.DataRepo
         public void update(River con)
         {
             context.RiverData.Update(con);
+            context.SaveChanges();
         }
     }
 }

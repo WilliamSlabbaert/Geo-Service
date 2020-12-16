@@ -16,9 +16,14 @@ namespace BusinessLayer
             SetSurface(surface);
             SetContinent(continent);
         }
+        public void GetCountiesPopulationCount()
+        {
+            foreach (var city in this.Cities)
+                this.Population += city.Population;
+        }
         public void SetPopulation(int pop)
         {
-            if (pop <= 0 || pop == null)
+            if (pop <= 0 )
                 throw new Exception("Population is lower than 0");
             this.Population = pop;
         }
@@ -30,7 +35,7 @@ namespace BusinessLayer
         }
         public void SetSurface(Double surface)
         {
-            if (surface <= 0 || surface == null)
+            if (surface <= 0 )
                 throw new Exception("Surface is lower than 0");
             this.Surface = surface;
         }
