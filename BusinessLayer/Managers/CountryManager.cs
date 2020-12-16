@@ -57,17 +57,14 @@ namespace BusinessLayer.Managers
                 if (uow.countryRepo.getById(id).Cities.Count.Equals(0))
                 {
                     uow.countryRepo.delete(id);
-                    var tempContinent = uow.continentRepo.getById(GetCountry(id).Continent.ID);
-                    tempContinent.GetCountiesPopulationCount();
-                    uow.continentRepo.update(tempContinent);
-                    uow.Complete();
                 }
+
                 else
                     throw new Exception("Country has existing cities");
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Something went wrong : (CountryManager RemoveCountry)");
+                throw new Exception("Something went wrong : (CountryManager RemoveCountry) " + e);
             }
 
         }

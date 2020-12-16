@@ -101,9 +101,13 @@ namespace BusinessLayer_Test
             Assert.AreEqual(500, country.Population);
 
             var tempcontinents = tempContinent.GetAllContinents();
-            
-            Assert.AreEqual(1000, tempcontinents[0].Population);
+            countries = tempCountry.GetAllCountries();
 
+            Assert.AreEqual(1000, tempcontinents[0].Population);
+            tempCountry.RemoveCountry(countries[0].ID);
+            
+            tempContinent = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            Assert.AreEqual(500, tempContinent.GetAllContinents()[0].Population);
             tempCountry = new CountryManager(new UnitOfWork(new DataContext("test")));
             tempContinent = new ContinentManager(new UnitOfWork(new DataContext("test")));
             tempCountry.RemoveAllCountries();

@@ -41,15 +41,15 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                //var con = getById(id).Continent;
-                //con.Countries.Remove(getById(id));
-                
 
+                //getById(id).Continent.Countries.Remove(getById(id).Continent.Countries.Find(s => s.ID == getById(id).Continent.ID));
                 context.CountryData.Remove(getById(id));
                 context.SaveChanges();
-                //context.ContinentData.Update(con);
-                //context.SaveChanges();
 
+                //var tempcon = context.ContinentData.Find(temp);
+                //tempcon.GetCountiesPopulationCount();
+                //context.ContinentData.Update(tempcon);
+                //context.SaveChanges();
 
             }
             catch (Exception e)

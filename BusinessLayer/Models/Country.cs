@@ -45,6 +45,12 @@ namespace BusinessLayer
                 throw new Exception("Continent is null");
             this.Continent = continent;
         }
+        public void GetCitiesPopulationCount()
+        {
+            this.Population = 0;
+            foreach (var city in this.Cities)
+                this.Population = this.Population + city.Population;
+        }
         public int ID { get; set; }
         public String Name { get; set; }
         public int Population { get; set; }
