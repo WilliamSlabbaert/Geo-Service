@@ -28,7 +28,10 @@ namespace Datalaag.DataRepo
             try
             {
                 context.CityData.Add(con);
+                con.Country.GetCitiesPopulationCount();
                 context.SaveChanges();
+
+                RefreshPopulation();
             }
             catch
             {
@@ -40,12 +43,13 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                context.CityData.Remove(getById(id));
-                context.SaveChanges();
+                var city = getById(id);
+                context.CityData.Remove(city);
+                RefreshPopulation();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("there went something wrong : CityRepo delete");
+                throw new Exception("there went something wrong : CityRepo delete " + e);
             }
         }
 
@@ -65,9 +69,9 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                City temp = context.CityData.Include(s => s.Country).Where(s => s.ID == id).ToList()[0];
+                City temp = context.CityData.Include(s=>s.Country).ThenInclude(s=>s.Continent).FirstOrDefault(s=>s.ID == id);
                 if (temp == null)
-                    return null;
+                    throw new Exception("there is no City");
                 else
                     return temp;
             }
@@ -84,9 +88,9 @@ namespace Datalaag.DataRepo
                 foreach (City item in getAll())
                     delete(item.ID);
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("there went something wrong : CityRepo removeAll");
+                throw new Exception("there went something wrong : CityRepo removeAll " + e);
             }
         }
 
@@ -96,10 +100,20 @@ namespace Datalaag.DataRepo
             {
                 context.CityData.Update(con);
                 context.SaveChanges();
+                RefreshPopulation();
             }
             catch
             {
                 throw new Exception("there went something wrong : CityRepo update");
+            }
+        }
+        public void RefreshPopulation()
+        {
+            foreach (var country in context.CountryData.ToList())
+            {
+                country.GetCitiesPopulationCount();
+                context.CountryData.Update(country);
+                context.SaveChanges();
             }
         }
     }
