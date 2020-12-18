@@ -2,7 +2,7 @@
 
 namespace Datalaag.Migrations
 {
-    public partial class INIT : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,6 +63,7 @@ namespace Datalaag.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsCapital = table.Column<bool>(type: "bit", nullable: false),
                     Population = table.Column<int>(type: "int", nullable: false),
                     CountryID = table.Column<int>(type: "int", nullable: true)
                 },

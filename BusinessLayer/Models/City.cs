@@ -10,11 +10,12 @@ namespace BusinessLayer
         {
         }
 
-        public City(string name, int population, Country country)
+        public City(string name, int population, Country country,Boolean iscapital)
         {
             SetPopulation(population);
             SetName(name);
             SetCountry(country);
+            this.IsCapital = iscapital;
         }
         public void SetPopulation(int pop)
         {
@@ -37,6 +38,7 @@ namespace BusinessLayer
 
         public int ID { get; set; }
         public String Name { get; set; }
+        public Boolean IsCapital { get; set; }
         public int Population { get; set; }
         public Country Country { get; set; }
     }

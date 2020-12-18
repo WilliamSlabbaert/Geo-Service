@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datalaag.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201215234722_INIT")]
-    partial class INIT
+    [Migration("20201218165831_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,9 @@ namespace Datalaag.Migrations
 
                     b.Property<int?>("CountryID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsCapital")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -133,7 +136,7 @@ namespace Datalaag.Migrations
             modelBuilder.Entity("BusinessLayer.Country", b =>
                 {
                     b.HasOne("BusinessLayer.Continent", "Continent")
-                        .WithMany("Countries")
+                        .WithMany()
                         .HasForeignKey("ContinentID");
 
                     b.Navigation("Continent");
@@ -152,11 +155,6 @@ namespace Datalaag.Migrations
                         .HasForeignKey("RiversID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BusinessLayer.Continent", b =>
-                {
-                    b.Navigation("Countries");
                 });
 
             modelBuilder.Entity("BusinessLayer.Country", b =>

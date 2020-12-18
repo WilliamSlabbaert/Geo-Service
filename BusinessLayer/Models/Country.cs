@@ -21,7 +21,6 @@ namespace BusinessLayer
             this.Population = 0;
             foreach (var city in this.Cities)
                 this.Population += city.Population;
-            this.Continent.GetCountiesPopulationCount();
         }
         public void SetPopulation(int pop)
         {

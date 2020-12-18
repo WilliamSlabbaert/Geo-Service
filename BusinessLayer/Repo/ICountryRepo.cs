@@ -12,5 +12,6 @@ namespace BusinessLayer
         Country getById(int id);
         void removeAll();
         void update(Country con);
+        List<Country> getCountryByContinent(Continent con);
     }
 }

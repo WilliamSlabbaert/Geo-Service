@@ -27,12 +27,17 @@ namespace Datalaag
         {
             try
             {
-                context.ContinentData.Add(con);
-                context.SaveChanges();
+                if (IfExist(con))
+                {
+                    context.ContinentData.Add(con);
+                    context.SaveChanges();
+                }
+                else
+                    throw new Exception("Continent already exist");
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something went wrong : ContinentRepo add");
+                throw new Exception("Something went wrong : ContinentRepo add " + e);
             }
         }
 
@@ -53,9 +58,8 @@ namespace Datalaag
         {
             try
             {
-                var temp = context.ContinentData.Include(s => s.Countries).ToList();
-                foreach (var t in temp)
-                    t.GetCountiesPopulationCount();
+                var temp = context.ContinentData.ToList();
+               
                 return temp;
             }
             catch
@@ -68,9 +72,9 @@ namespace Datalaag
         {
             try
             {
-                Continent temp = context.ContinentData.Include(s => s.Countries).Where(s => s.ID == id).ToList()[0];
+                Continent temp = context.ContinentData.FirstOrDefault(s=>s.ID == id);
                 if (temp == null)
-                    return null;
+                    throw new Exception("Continent not found");
                 else
                     return temp;
             }
@@ -104,6 +108,13 @@ namespace Datalaag
             {
                 throw new Exception("Something went wrong : ContinentRepo update");
             }
+        }
+        public bool IfExist(Continent con)
+        {
+            var temp = getAll().FirstOrDefault(s => s.Name == con.Name);
+            if (temp == null)
+                return true;
+            return false;
         }
     }
 }

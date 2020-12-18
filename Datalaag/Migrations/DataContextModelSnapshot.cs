@@ -29,6 +29,9 @@ namespace Datalaag.Migrations
                     b.Property<int?>("CountryID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsCapital")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -131,7 +134,7 @@ namespace Datalaag.Migrations
             modelBuilder.Entity("BusinessLayer.Country", b =>
                 {
                     b.HasOne("BusinessLayer.Continent", "Continent")
-                        .WithMany("Countries")
+                        .WithMany()
                         .HasForeignKey("ContinentID");
 
                     b.Navigation("Continent");
@@ -150,11 +153,6 @@ namespace Datalaag.Migrations
                         .HasForeignKey("RiversID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BusinessLayer.Continent", b =>
-                {
-                    b.Navigation("Countries");
                 });
 
             modelBuilder.Entity("BusinessLayer.Country", b =>

@@ -11,55 +11,32 @@ namespace DataLayer_Testing
         {
             var temp = new UnitOfWork(new DataContext("test"));
             temp.continentRepo.removeAll();
-            temp.continentRepo.add(new BusinessLayer.Continent("test-Continent"));
-            temp.Complete();
+            temp.continentRepo.add(new BusinessLayer.Continent("test-continent"));
+            temp.continentRepo.add(new BusinessLayer.Continent("test-continent1"));
+
             var continents = temp.continentRepo.getAll();
-            var continent = temp.continentRepo.getById(continents[0].ID);
+            var continent1 = temp.continentRepo.getById(continents[0].ID);
+            var continent2 = temp.continentRepo.getById(continents[1].ID);
+            Assert.AreEqual(2, continents.Count);
+            Assert.AreEqual("test-continent",continent1.Name);
+            Assert.AreEqual("test-continent1", continent2.Name);
 
-            Assert.AreEqual("test-Continent", continent.Name);
-            Assert.AreEqual(0, continent.Population);
+            continent1.SetName("test-rename");
+            temp.continentRepo.update(continent1);
+
+            continents = temp.continentRepo.getAll();
+            continent1 = temp.continentRepo.getById(continents[0].ID);
+            continent2 = temp.continentRepo.getById(continents[1].ID);
+
+            Assert.AreEqual(2, continents.Count);
+            Assert.AreEqual("test-rename", continent1.Name);
+            Assert.AreEqual("test-continent1", continent2.Name);
+
+            temp.continentRepo.delete(continent1.ID);
+            continents = temp.continentRepo.getAll();
+            Assert.AreEqual(1, continents.Count);
+
             temp.continentRepo.removeAll();
-            temp.Complete();
-
-            temp.continentRepo.add(new BusinessLayer.Continent("test-Continent1"));
-            temp.Complete();
-            temp.continentRepo.add(new BusinessLayer.Continent("test-Continent2"));
-            temp.Complete();
-            temp.continentRepo.add(new BusinessLayer.Continent("test-Continent3"));
-            temp.Complete();
-            continents = temp.continentRepo.getAll();
-
-            Assert.AreEqual("test-Continent1", continents[0].Name);
-            Assert.AreEqual(0, continents[0].Population);
-
-            Assert.AreEqual("test-Continent2", continents[1].Name);
-            Assert.AreEqual(0, continents[1].Population);
-
-            Assert.AreEqual("test-Continent3", continents[2].Name);
-            Assert.AreEqual(0, continents[2].Population);
-
-            Assert.AreEqual(3, continents.Count);
-            temp.continentRepo.delete(continents[1].ID);
-            temp.Complete();
-            continents = temp.continentRepo.getAll();
-            Assert.AreEqual(2,continents.Count);
-
-            continent = temp.continentRepo.getById(continents[0].ID);
-
-            Assert.AreEqual("test-Continent1", continent.Name);
-            Assert.AreEqual(0, continent.Population);
-            
-            continent.SetName("test");
-            temp.continentRepo.update(continent);
-            temp.Complete();
-
-            continents = temp.continentRepo.getAll();
-            continent = temp.continentRepo.getById(continents[0].ID);
-
-            Assert.AreEqual("test", continent.Name);
-            Assert.AreEqual(0, continent.Population);
-            temp.continentRepo.removeAll();
-            temp.Complete();
         }
     }
 }

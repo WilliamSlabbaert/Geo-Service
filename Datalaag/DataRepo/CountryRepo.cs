@@ -27,22 +27,28 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                var temp = context.ContinentData.Find(con.Continent.ID);
-                temp.AddCountry(con);
-                context.ContinentData.Update(temp);
+                if (NameCheck(con))
+                {
+                    context.CountryData.Add(con);
+                    context.SaveChanges();
+                    RefactorPopulation();
+                }
+                else
+                    throw new Exception("Country already exist instide Continent");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Something went wrong : CountryRepo add " + e);
             }
         }
-
         public void delete(int id)
         {
             try
             {
+                Continent con = getById(id).Continent;
                 context.CountryData.Remove(getById(id));
                 context.SaveChanges();
+                RefactorPopulation();
             }
             catch (Exception e)
             {
@@ -66,7 +72,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                Country temp = context.CountryData.FirstOrDefault(s => s.ID == id);
+                Country temp = context.CountryData.Include(s => s.Continent).FirstOrDefault(s => s.ID == id);
                 if (temp == null)
                     throw new Exception("No Country found");
                 else
@@ -85,7 +91,7 @@ namespace Datalaag.DataRepo
                 foreach (var item in getAll())
                     delete(item.ID);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Something went wrong : CountryRepo removeAll " + e);
             }
@@ -97,12 +103,56 @@ namespace Datalaag.DataRepo
             {
                 context.CountryData.Update(con);
                 context.SaveChanges();
+                RefactorPopulation();
             }
             catch
             {
                 throw new Exception("Something went wrong : CountryRepo update");
             }
 
+        }
+        public List<Country> getCountryByContinent(Continent con)
+        {
+            try
+            {
+                var temp = getAll().FindAll(s => s.Continent == con);
+                return temp;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo getCountryByContinent " + e);
+            }
+        }
+        public Boolean NameCheck(Country con)
+        {
+            try
+            {
+                List<Country> CountriesTemp = getCountryByContinent(con.Continent);
+                Country temp = CountriesTemp.FirstOrDefault(s => s.Name == con.Name);
+                if (temp == null)
+                    return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong : CountryRepo NameCheck " + e);
+            }
+        }
+        public void RefactorPopulation()
+        {
+            foreach (var con in context.ContinentData.ToList())
+            {
+                int count = 0;
+                var temp = getCountryByContinent(con);
+
+                if (temp != null && con != null)
+                {
+                    foreach (var country in temp)
+                        count += country.Population;
+                }
+                con.SetPopulation(count);
+                context.SaveChanges();
+            }
         }
     }
 }
