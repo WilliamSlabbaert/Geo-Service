@@ -12,5 +12,7 @@ namespace BusinessLayer
         Continent getById(int id);
         void removeAll();
         void update(Continent con);
+        Boolean IfContainsCountries(int id);
+        bool IfExist(Continent con);
     }
 }

@@ -9,6 +9,14 @@ namespace Datalaag
     public class UnitOfWork : IUnitOfWork
     {
         private DataContext context;
+        public IContinentRepo continentRepo { get; }
+
+        public IRiverRepo riverRepo { get; }
+
+        public ICityRepo cityRepo { get; }
+
+        public ICountryRepo countryRepo { get; }
+
         public UnitOfWork(DataContext context)
         {
             this.context = context;
@@ -18,15 +26,6 @@ namespace Datalaag
             riverRepo = new RiverRepo(context);
             
         }
-
-        public IContinentRepo continentRepo { get;}
-
-        public IRiverRepo riverRepo { get; }
-
-        public ICityRepo cityRepo { get; }
-
-        public ICountryRepo countryRepo { get; }
-
         public int Complete()
         {
             return context.SaveChanges();

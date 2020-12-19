@@ -13,7 +13,7 @@ namespace DataLayer_Testing
         [TestMethod]
         public void Test_Repo_Country()
         {
-            var temp = new UnitOfWork(new DataContext("test"));
+            UnitOfWork temp = new UnitOfWork(new DataContext("test"));
             temp.countryRepo.removeAll();
             temp.continentRepo.removeAll();
             temp.continentRepo.add(new Continent("test-continent"));
@@ -26,7 +26,7 @@ namespace DataLayer_Testing
             List<Country> countries = temp.countryRepo.getAll();
             Country country1 = temp.countryRepo.getById(countries[0].ID);
             Country country2 = temp.countryRepo.getById(countries[1].ID);
-
+            
             Assert.AreEqual(2, countries.Count);
 
             Assert.AreEqual("test-country1", country1.Name);
@@ -41,13 +41,7 @@ namespace DataLayer_Testing
             Assert.AreEqual(con, country1.Continent);
             Assert.AreEqual(con, country2.Continent);
 
-            con = temp.continentRepo.getAll()[0];
-            Assert.AreEqual(520, con.Population);
-
             temp.countryRepo.delete(country1.ID);
-
-            con = temp.continentRepo.getAll()[0];
-            Assert.AreEqual(20, con.Population);
             
             countries = temp.countryRepo.getAll();
             Assert.AreEqual(1, countries.Count);

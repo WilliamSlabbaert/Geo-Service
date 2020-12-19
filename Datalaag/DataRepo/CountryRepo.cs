@@ -27,14 +27,11 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                if (NameCheck(con))
-                {
-                    context.CountryData.Add(con);
-                    context.SaveChanges();
-                    RefactorPopulation();
-                }
-                else
-                    throw new Exception("Country already exist instide Continent");
+
+                context.CountryData.Add(con);
+                context.SaveChanges();
+                //RefactorPopulation();
+
             }
             catch (Exception e)
             {
@@ -48,7 +45,7 @@ namespace Datalaag.DataRepo
                 Continent con = getById(id).Continent;
                 context.CountryData.Remove(getById(id));
                 context.SaveChanges();
-                RefactorPopulation();
+                //RefactorPopulation();
             }
             catch (Exception e)
             {
@@ -103,7 +100,7 @@ namespace Datalaag.DataRepo
             {
                 context.CountryData.Update(con);
                 context.SaveChanges();
-                RefactorPopulation();
+                //RefactorPopulation();
             }
             catch
             {
@@ -121,37 +118,6 @@ namespace Datalaag.DataRepo
             catch (Exception e)
             {
                 throw new Exception("Something went wrong : CountryRepo getCountryByContinent " + e);
-            }
-        }
-        public Boolean NameCheck(Country con)
-        {
-            try
-            {
-                List<Country> CountriesTemp = getCountryByContinent(con.Continent);
-                Country temp = CountriesTemp.FirstOrDefault(s => s.Name == con.Name);
-                if (temp == null)
-                    return true;
-                return false;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Something went wrong : CountryRepo NameCheck " + e);
-            }
-        }
-        public void RefactorPopulation()
-        {
-            foreach (var con in context.ContinentData.ToList())
-            {
-                int count = 0;
-                var temp = getCountryByContinent(con);
-
-                if (temp != null && con != null)
-                {
-                    foreach (var country in temp)
-                        count += country.Population;
-                }
-                con.SetPopulation(count);
-                context.SaveChanges();
             }
         }
     }

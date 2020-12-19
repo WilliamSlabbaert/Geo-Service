@@ -2,6 +2,7 @@ using BusinessLayer;
 using BusinessLayer.Managers;
 using Datalaag;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace BusinessLayer_Test
 {
@@ -9,34 +10,40 @@ namespace BusinessLayer_Test
     public class Continent_Test
     {
         [TestMethod]
-        public void Continent_Add_Test()
+        public void Continent_Manager_Test()
         {
             ContinentManager temp = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            temp.RemoveAll();
+            Continent con = new Continent("test-continent");
+            Assert.AreEqual(0, con.ID);
+            temp.Add(con);
+            temp.Add(new Continent("test-continent1"));
 
-        }
-        [TestMethod]
-        public void Continent_Get_Test()
-        {
-            ContinentManager temp = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            List<Continent> continents = temp.GetAll();
+            Continent continent1 = temp.Get(continents[0].ID);
+            Continent continent2 = temp.Get(continents[1].ID);
 
-        }
-        [TestMethod]
-        public void Continent_Delete_Test()
-        {
-            ContinentManager temp = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            Assert.AreEqual(2, continents.Count);
+            Assert.AreEqual("test-continent",continent1.Name);
+            Assert.AreEqual("test-continent1", continent2.Name);
 
-        }
-        [TestMethod]
-        public void Continent_GetAll_Test()
-        {
-            ContinentManager temp = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            temp.Remove(continent1.ID);
 
-        }
-        [TestMethod]
-        public void Continent_Update_Test()
-        {
-            ContinentManager temp = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            continents = temp.GetAll();
+            continent1 = temp.Get(continents[0].ID);
 
+            Assert.AreEqual(1, continents.Count);
+            Assert.AreEqual("test-continent1", continent1.Name);
+
+            continent1.SetName("test");
+
+            temp.Update(continent1);
+
+            continents = temp.GetAll();
+            continent1 = temp.Get(continents[0].ID);
+            Assert.AreEqual("test", continent1.Name);
+            temp.RemoveAll();
         }
+       
     }
 }

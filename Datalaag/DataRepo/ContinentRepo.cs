@@ -27,15 +27,12 @@ namespace Datalaag
         {
             try
             {
-                if (IfExist(con))
-                {
-                    context.ContinentData.Add(con);
-                    context.SaveChanges();
-                }
-                else
-                    throw new Exception("Continent already exist");
+
+                context.ContinentData.Add(con);
+                context.SaveChanges();
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Something went wrong : ContinentRepo add " + e);
             }
@@ -45,13 +42,25 @@ namespace Datalaag
         {
             try
             {
-                context.ContinentData.Remove(getById(id));
-                context.SaveChanges();
+                if (IfContainsCountries(id))
+                {
+                    context.ContinentData.Remove(getById(id));
+                    context.SaveChanges();
+                }
+                else
+                    throw new Exception("Continent still have countries");
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Something went wrong : ContinentRepo add");
+                throw new Exception("Something went wrong : ContinentRepo delete " + e);
             }
+        }
+        public Boolean IfContainsCountries(int id)
+        {
+            var temp = context.CountryData.ToList().FindAll(s => s.Continent == getById(id));
+            if (temp.Count == 0 || temp == null)
+                return true;
+            return false;
         }
 
         public List<Continent> getAll()
@@ -59,7 +68,7 @@ namespace Datalaag
             try
             {
                 var temp = context.ContinentData.ToList();
-               
+
                 return temp;
             }
             catch
@@ -72,7 +81,7 @@ namespace Datalaag
         {
             try
             {
-                Continent temp = context.ContinentData.FirstOrDefault(s=>s.ID == id);
+                Continent temp = context.ContinentData.FirstOrDefault(s => s.ID == id);
                 if (temp == null)
                     throw new Exception("Continent not found");
                 else
@@ -91,9 +100,9 @@ namespace Datalaag
                 foreach (Continent item in getAll())
                     delete(item.ID);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Something went wrong : ContinentRepo removeAll");
+                throw new Exception("Something went wrong : ContinentRepo removeAll " + e);
             }
         }
 
