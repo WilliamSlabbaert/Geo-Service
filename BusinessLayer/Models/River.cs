@@ -10,10 +10,11 @@ namespace BusinessLayer
         {
         }
 
-        public River(string name, double lenght)
+        public River(string name, double lenght, List<Country> con)
         {
-            Name = name;
-            Lenght = lenght;
+            SetName(name);
+            SetLenght(lenght);
+            SetCountries(con);
         }
         public void SetName(String name)
         {
@@ -27,9 +28,24 @@ namespace BusinessLayer
                 throw new Exception("Length is lower than 0");
             this.Lenght = length;
         }
-        public int ID { get; set; }
-        public String Name { get; set; }
-        public Double Lenght { get; set; }
-        public List<Country> Countries { get; set; } = new List<Country>();
+        public void SetCountries(List<Country> con)
+        {
+            if (con == null)
+                throw new Exception("No valid country list");
+            this.Countries =con;
+        }
+        public void AddCountry(Country con)
+        {
+            if(con == null)
+                throw new Exception("No valid country");
+            if (!this.Countries.Contains(con))
+                this.Countries.Add(con);
+            else
+                throw new Exception("Country already in list");
+        }
+        public int ID { get; private set; }
+        public String Name { get; private set; }
+        public Double Lenght { get; private set; }
+        public List<Country> Countries { get; private set; } = new List<Country>();
     }
 }
