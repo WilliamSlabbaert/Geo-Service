@@ -26,7 +26,7 @@ namespace BusinessLayer
                 throw new Exception("Name is null");
             this.Name = name;
         }
-        public int ID { get; set; }
+        public int ID { get; private set; }
         public String Name { get; private set; }
         public int Population { get; private set; }
     }

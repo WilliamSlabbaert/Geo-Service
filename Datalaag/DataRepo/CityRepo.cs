@@ -28,14 +28,11 @@ namespace Datalaag.DataRepo
             try
             {
                 context.CityData.Add(con);
-                con.Country.GetCitiesPopulationCount();
                 context.SaveChanges();
-
-                RefreshPopulation();
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("there went something wrong : CityRepo add");
+                throw new Exception("there went something wrong : CityRepo add " +e );
             }
         }
 
@@ -45,7 +42,7 @@ namespace Datalaag.DataRepo
             {
                 var city = getById(id);
                 context.CityData.Remove(city);
-                RefreshPopulation();
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -64,7 +61,17 @@ namespace Datalaag.DataRepo
                 throw new Exception("there went something wrong : CityRepo getAll");
             }
         }
-
+        public List<City> getAllByCountry(Country country)
+        {
+            try
+            {
+                return context.CityData.Include(s => s.Country).ToList().FindAll(s=>s.Country == country);
+            }
+            catch
+            {
+                throw new Exception("there went something wrong : CityRepo getAll");
+            }
+        }
         public City getById(int id)
         {
             try
@@ -100,21 +107,21 @@ namespace Datalaag.DataRepo
             {
                 context.CityData.Update(con);
                 context.SaveChanges();
-                RefreshPopulation();
+                //RefreshPopulation();
             }
             catch
             {
                 throw new Exception("there went something wrong : CityRepo update");
             }
         }
-        public void RefreshPopulation()
-        {
-            foreach (var country in context.CountryData.ToList())
-            {
-                country.GetCitiesPopulationCount();
-                context.CountryData.Update(country);
-                context.SaveChanges();
-            }
-        }
+        //public void RefreshPopulation()
+        //{
+        //    foreach (var country in context.CountryData.ToList())
+        //    {
+        //        country.GetCitiesPopulationCount();
+        //        context.CountryData.Update(country);
+        //        context.SaveChanges();
+        //    }
+        //}
     }
 }

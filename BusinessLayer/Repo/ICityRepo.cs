@@ -12,5 +12,6 @@ namespace BusinessLayer
         City getById(int id);
         void removeAll();
         void update(City city);
+        List<City> getAllByCountry(Country country);
     }
 }

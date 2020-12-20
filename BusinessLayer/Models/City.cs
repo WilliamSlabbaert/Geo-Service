@@ -36,10 +36,10 @@ namespace BusinessLayer
             this.Country = country;
         }
 
-        public int ID { get; set; }
-        public String Name { get; set; }
+        public int ID { get; private set; }
+        public String Name { get; private set; }
         public Boolean IsCapital { get; set; }
-        public int Population { get; set; }
-        public Country Country { get; set; }
+        public int Population { get; private set; }
+        public Country Country { get; private set; }
     }
 }

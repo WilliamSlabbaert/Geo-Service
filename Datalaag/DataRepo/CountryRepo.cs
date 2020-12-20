@@ -57,7 +57,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                return context.CountryData.Include(s => s.Cities).Include(s => s.Rivers).ToList();
+                return context.CountryData.ToList();
             }
             catch
             {
@@ -69,7 +69,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                Country temp = context.CountryData.Include(s => s.Continent).FirstOrDefault(s => s.ID == id);
+                Country temp = context.CountryData.FirstOrDefault(s => s.ID == id);
                 if (temp == null)
                     throw new Exception("No Country found");
                 else

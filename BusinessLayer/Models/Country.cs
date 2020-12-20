@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer
 {
@@ -47,12 +48,12 @@ namespace BusinessLayer
             this.Continent = continent;
         }
      
-        public int ID { get; set; }
-        public String Name { get; set; }
-        public int Population { get; set; }
-        public Double Surface { get; set; }
-        public Continent Continent { get; set; }
-        public List<City> Cities { get; set; } = new List<City>();
-        public List<River> Rivers { get; set; } = new List<River>();
+        public int ID { get; private set; }
+        public String Name { get; private set; }
+        public int Population { get; private set; }
+        public Double Surface { get; private set; }
+        public Continent Continent { get; private set; }
+        public List<City> Cities { get; private set; } = new List<City>();
+        public List<River> Rivers { get; private set; } = new List<River>();
     }
 }
