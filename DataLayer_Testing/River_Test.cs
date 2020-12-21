@@ -54,7 +54,8 @@ namespace DataLayer_Testing
             Assert.AreEqual(river, country1.Rivers[0]);
             Assert.AreEqual(river, country2.Rivers[0]);
             var rivers = temp.riverRepo.getAll();
-            
+            river = temp.riverRepo.getById(rivers[0].ID);
+            Assert.AreEqual(2, river.Countries.Count);
             rivers[0].SetLenght(5000);
             rivers[0].SetName("test");
             rivers[0].AddCountry(countries[2]);

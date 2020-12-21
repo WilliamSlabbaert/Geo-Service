@@ -30,14 +30,14 @@ namespace Datalaag.DataRepo
 
         public List<River> getAll()
         {
-            return context.RiverData.Include(s => s.Countries).ToList();
+            return context.RiverData.ToList();
         }
 
         public River getById(int id)
         {
-            River temp = context.RiverData.Include(s => s.Countries).Where(s => s.ID == id).ToList()[0];
+            River temp = context.RiverData.FirstOrDefault(s => s.ID == id);
             if (temp == null)
-                return null;
+                throw new Exception("River not found");
             else
                 return temp;
         }

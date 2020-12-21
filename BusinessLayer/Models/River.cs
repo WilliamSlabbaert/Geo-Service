@@ -30,7 +30,7 @@ namespace BusinessLayer
         }
         public void SetCountries(List<Country> con)
         {
-            if (con == null)
+            if (con == null || con.Count <=0)
                 throw new Exception("No valid country list");
             this.Countries =con;
         }
