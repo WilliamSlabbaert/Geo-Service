@@ -27,6 +27,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
+                con.SetCountry(context.CountryData.FirstOrDefault(s => s.Name == con.Country.Name));
                 context.CityData.Add(con);
                 context.SaveChanges();
             }
@@ -105,6 +106,11 @@ namespace Datalaag.DataRepo
         {
             try
             {
+                var country = context.CountryData.FirstOrDefault(s => s.Name == con.Country.Name);
+                var continent = context.ContinentData.FirstOrDefault(s => s.Name == country.Continent.Name);
+                country.SetContinent(continent);
+                con.SetCountry(country);
+
                 context.CityData.Update(con);
                 context.SaveChanges();
                 //RefreshPopulation();

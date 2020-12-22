@@ -38,7 +38,7 @@ namespace API_Layer.Controllers
                     Population = s.Population,
                     Continent = $"https://localhost:5001/api/Continent/" + temp.ID,
                     Surface = s.Surface,
-                    Cities = s.Cities.Select(k => $"https://localhost:5001/api/Continent/{temp.ID}/Country/{s.ID}/City" + k.ID.ToString()).ToList(),
+                    Cities = s.Cities.Select(k => $"https://localhost:5001/api/Continent/{temp.ID}/Country/{s.ID}/City/" + k.ID.ToString()).ToList(),
                     Rivers = s.Rivers.Select(x => $"https://localhost:5001/api/River/" + x.ID.ToString()).ToList()
                 }).ToList();
             }catch(Exception e)
@@ -63,7 +63,7 @@ namespace API_Layer.Controllers
                         Continent = $"https://localhost:5001/api/Continent/" + temp.Continent.ID,
                         Population = temp.Population,
                         Surface = temp.Surface,
-                        Cities = temp.Cities.Select(k => $"https://localhost:5001/api/Continent/{temp.Continent.ID}/Country/{temp.ID}/City" + k.ID.ToString()).ToList(),
+                        Cities = temp.Cities.Select(k => $"https://localhost:5001/api/Continent/{temp.Continent.ID}/Country/{temp.ID}/City/" + k.ID.ToString()).ToList(),
                         Rivers = temp.Rivers.Select(x => $"https://localhost:5001/api/River/" + x.ID.ToString()).ToList()
                     };
                 }
@@ -110,7 +110,7 @@ namespace API_Layer.Controllers
                 var temp = new Country(country.Name, country.Population, country.Surface, ContinentManager.Get(id));
                 CountryManager.Add(temp);
                 logger.LogInformation("CountryController : Post => " + DateTime.Now);
-                return CreatedAtAction(nameof(Get), new { id = temp.ID }, temp);
+                return CreatedAtAction(nameof(Get), new { id = temp.Continent.ID , con_id = temp.ID}, temp);
             }
             catch(Exception e)
             {

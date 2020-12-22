@@ -17,7 +17,7 @@ namespace BusinessLayer.Managers
             {
                 if (CalculatePopulationCheck(con))
                 {
-                    uow.cityRepo.update(con);
+                    uow.cityRepo.add(con);
                     uow.Complete();
                 }
                 else
@@ -77,7 +77,7 @@ namespace BusinessLayer.Managers
             try
             {
                 var temp = city;
-                city.SetCountry(con);
+                city.SetCountry(uow.countryRepo.getById(con.ID));
                 city.SetName(name);
                 city.SetPopulation(population);
                 city.IsCapital = capital;
@@ -93,7 +93,7 @@ namespace BusinessLayer.Managers
         }
         public bool CalculatePopulationCheck(City city)
         {
-            var tempList = uow.cityRepo.getAll().FindAll(c => c.Country == city.Country);
+            var tempList = uow.cityRepo.getAll().FindAll(c => c.Country.ID == city.Country.ID);
             tempList.Remove(city);
             int totalPopulation = 0;
             foreach (var cityItem in tempList)
