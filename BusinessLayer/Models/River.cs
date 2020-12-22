@@ -46,6 +46,6 @@ namespace BusinessLayer
         public int ID { get; private set; }
         public String Name { get; private set; }
         public Double Lenght { get; private set; }
-        public List<Country> Countries { get; private set; } = new List<Country>();
+        public virtual List<Country> Countries { get; private set; } = new List<Country>();
     }
 }

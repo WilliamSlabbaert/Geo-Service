@@ -16,7 +16,10 @@ namespace BusinessLayer.Managers
         {
             try
             {
-                uow.riverRepo.update(con);
+                var tempList = con.Countries.Select(s => s.ID).ToList();
+                List<Country> countryList =  uow.countryRepo.getAll().FindAll(s => tempList.Contains(s.ID));
+                con.SetCountries(countryList);
+                uow.riverRepo.add(con);
                 uow.Complete();
             }catch(Exception e)
             {
@@ -74,14 +77,17 @@ namespace BusinessLayer.Managers
         {
             try
             {
+                var tempList = countries.Select(s => s.ID).ToList();
+                List<Country> countryList = uow.countryRepo.getAll().FindAll(s => tempList.Contains(s.ID));
+
                 river.SetLenght(lenght);
                 river.SetName(name);
-                river.SetCountries(countries);
+                river.SetCountries(countryList);
                 uow.Complete();
             }
             catch (Exception e)
             {
-                throw new Exception("RiverManager Update " + e);
+                throw new Exception("RiverManager Update " + e.Message);
             }
         }
     }

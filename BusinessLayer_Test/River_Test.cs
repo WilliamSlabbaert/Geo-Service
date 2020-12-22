@@ -48,7 +48,7 @@ namespace BusinessLayer_Test
 
             var rivers = tempRiver.GetAll();
             var river = tempRiver.Get(rivers[0].ID);
-
+            Assert.AreEqual(1, rivers.Count);
             Assert.AreEqual("test-river", river.Name);
             Assert.AreEqual(250, river.Lenght);
             country1 = tempCountry.Get(countries[0].ID);
@@ -75,6 +75,9 @@ namespace BusinessLayer_Test
             tempRiver.Remove(river.ID);
             rivers = tempRiver.GetAll();
             Assert.AreEqual(0, rivers.Count);
+            tempCountry = new CountryManager(new UnitOfWork(new DataContext("test")));
+            tempContinent = new ContinentManager(new UnitOfWork(new DataContext("test")));
+            tempRiver = new RiverManager(new UnitOfWork(new DataContext("test")));
             tempRiver.RemoveAll();
             tempCountry.RemoveAll();
             tempContinent.RemoveAll();

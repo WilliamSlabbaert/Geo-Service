@@ -18,8 +18,15 @@ namespace Datalaag.DataRepo
 
         public void add(River con)
         {
-            context.RiverData.Add(con);
-            context.SaveChanges();
+            try
+            {
+                context.RiverData.Add(con);
+                context.SaveChanges();
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
         }
 
         public void delete(int id)

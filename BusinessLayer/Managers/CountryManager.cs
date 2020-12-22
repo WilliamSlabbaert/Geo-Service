@@ -113,7 +113,7 @@ namespace BusinessLayer.Managers
             }
             catch (Exception e)
             {
-                throw new Exception("CountryManager RemoveAll " + e);
+                throw new Exception("CountryManager RemoveAll " + e.Message);
             }
         }
         public void RefactorPopulation()
