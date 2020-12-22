@@ -87,9 +87,9 @@ namespace Datalaag
                 else
                     return temp;
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something went wrong : ContinentRepo getById");
+                throw new Exception("Something went wrong : ContinentRepo getById "+ e.Message);
             }
         }
 

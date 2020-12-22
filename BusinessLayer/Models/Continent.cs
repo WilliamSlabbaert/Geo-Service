@@ -9,7 +9,6 @@ namespace BusinessLayer
         public Continent()
         {
         }
-
         public Continent(string name)
         {
             SetName(name);

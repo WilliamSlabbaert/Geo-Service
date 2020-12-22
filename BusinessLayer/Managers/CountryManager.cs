@@ -16,17 +16,16 @@ namespace BusinessLayer.Managers
         {
             try
             {
-                var temp = GetAll().FirstOrDefault(s => s.Name == con.Name && s.Continent == con.Continent);
-
+                var temp = GetAll().FirstOrDefault(s => s.Name == con.Name && s.Continent.Name == con.Continent.Name);
                 if (temp == null)
-                    uow.countryRepo.update(con);
+                    uow.countryRepo.add(con);
                 else
                     throw new Exception("Country already Exist in Continent" + temp.ID);
                 RefactorPopulation();
             }
             catch (Exception e)
             {
-                throw new Exception("CountryManager Add " + e);
+                throw new Exception("CountryManager Add " + e.Message);
             }
         }
         public void Update(Country con,String name,int pop,double sur,Continent continent)
@@ -131,6 +130,17 @@ namespace BusinessLayer.Managers
                 }
                 con.SetPopulation(count);
                 uow.Complete();
+            }
+        }
+        public List<Country> GetByContinentName(Continent con)
+        {
+            try
+            {
+                return GetAll().FindAll(s => s.Continent.Name == con.Name);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("CountryManager GetByCountryName " + e);
             }
         }
     }

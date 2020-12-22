@@ -48,6 +48,10 @@ namespace BusinessLayer
                 throw new Exception("ContinentManager GetAll: " + e);
             }
         }
+        public bool IfExist(Continent con)
+        {
+            return uow.continentRepo.IfExist(con);
+        }
         
 
         public void Update(Continent con)

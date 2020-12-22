@@ -27,7 +27,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-
+                con.SetContinent(context.ContinentData.FirstOrDefault(s => s.Name == con.Continent.Name));
                 context.CountryData.Add(con);
                 context.SaveChanges();
                 //RefactorPopulation();
@@ -57,7 +57,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                return context.CountryData.ToList();
+                return context.CountryData.Include(s => s.Continent).Include(c => c.Cities).Include(c => c.Rivers).ToList();
             }
             catch
             {
@@ -69,7 +69,7 @@ namespace Datalaag.DataRepo
         {
             try
             {
-                Country temp = context.CountryData.FirstOrDefault(s => s.ID == id);
+                Country temp = context.CountryData.Include(s=>s.Continent).Include(c =>c.Cities).Include(c => c.Rivers).FirstOrDefault(s => s.ID == id);
                 if (temp == null)
                     throw new Exception("No Country found");
                 else
@@ -102,9 +102,9 @@ namespace Datalaag.DataRepo
                 context.SaveChanges();
                 //RefactorPopulation();
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something went wrong : CountryRepo update");
+                throw new Exception("Something went wrong : CountryRepo update: " +  e.Message );
             }
 
         }
