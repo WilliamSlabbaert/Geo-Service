@@ -19,7 +19,7 @@ namespace API_Layer.Controllers
         public CountryManager CountryManager { get; set; }
         public RiverManager RiverManager { get; set; }
         private readonly ILogger logger;
-        public RiverController(ILogger<CountryController> logger)
+        public RiverController(ILogger<RiverController> logger)
         {
             this.logger = logger;
             ContinentManager = new ContinentManager(new UnitOfWork(new DataContext("test")));

@@ -19,7 +19,7 @@ namespace API_Layer.Controllers
         public CountryManager CountryManager { get; set; }
         public CityManager CityManager { get; set; }
         private readonly ILogger logger;
-        public CityController(ILogger<ContinentController> logger)
+        public CityController(ILogger<CityController> logger)
         {
             this.logger = logger;
             ContinentManager = new ContinentManager(new UnitOfWork(new DataContext("test")));
@@ -93,7 +93,6 @@ namespace API_Layer.Controllers
                         return NotFound("City not found in Country");
                     else
                     {
-                        
                         if (getNewCountry != null)
                         {
                             CityManager.Update(temp, con.name, con.Population, con.Capital, getNewCountry);

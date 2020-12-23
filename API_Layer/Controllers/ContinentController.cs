@@ -18,12 +18,15 @@ namespace API_Layer.Controllers
         public ContinentManager ContinentManager { get; set; }
         public CountryManager CountryManager { get; set; }
         private readonly ILogger logger;
+        private ILogger<CountryController> @object;
+
         public ContinentController(ILogger<ContinentController> logger)
         {
             this.logger = logger;
             ContinentManager = new ContinentManager(new UnitOfWork(new DataContext("test")));
             CountryManager = new CountryManager(new UnitOfWork(new DataContext("test")));
         }
+
         [HttpGet]
         public ActionResult<List<SampleContinent>> GetAll()
         {
